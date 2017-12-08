@@ -16,7 +16,7 @@ router.use(methodOverride(function(req, res){
 
 router.route('/')
     .get(function(req, res, next) {
-        Character.find({}, function (err, characters) {
+        Character.find({'userId' : req.cookies.userId}, function (err, characters) {
             if (err) {
                 return console.error(err);
             } else {
@@ -43,7 +43,8 @@ router.route('/')
             sex: sex,
             level: 1,
             xp: 0,
-            creationDate: Date.now()
+            creationDate: Date.now(),
+            userId: req.cookies.userId
         }, function (err, character) {
             if (err) {
                 res.send("Fail to create character");

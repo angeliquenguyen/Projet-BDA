@@ -14,3 +14,6 @@ block content
                                 li Last Name ---> #{user.lastName}
                         a(href='/signout', class='text-center new-account') Sign Out
                         a(href='/characters', class='text-center new-account') Select Character
+    script(src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js")
+    script.
+        Cookies.set('userId', "#{user._id}")
