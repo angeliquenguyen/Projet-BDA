@@ -37,11 +37,11 @@ router.route('/')
     })
     .post(function(req, res) {
         var name = req.body.name;
-        var race = req.body.race;
         var sex = req.body.sex;
+        var avatar = sex === "M" ? "/images/male_avatar.jpg" : "/images/female_avatar.jpg";
         Character.create({
             name: name,
-            race: race,
+            avatar: avatar,
             sex: sex,
             level: 1,
             xp: 0,
@@ -136,10 +136,12 @@ router.route('/:id/edit')
     .put(function(req, res) {
         var name = req.body.name;
         var sex = req.body.sex;
+        var avatar = sex === "M" ? "/images/male_avatar.jpg" : "/images/female_avatar.jpg";
         Character.findById(req.id, function (err, character) {
             character.update({
                 name: name,
-                sex: sex
+                sex: sex,
+                avatar: avatar
             }, function(err, characterId) {
 
                 if (err) {

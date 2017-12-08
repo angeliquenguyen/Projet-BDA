@@ -9,7 +9,8 @@ block content
                     for character in characters
                         li Name: #{character.name}
                         li Sex: #{character.sex}
-                        li Race: #{character.race}
+                        li
+                            img(src='#{character.avatar}')
                         li Level: #{character.level}
                         li #{character.xp} XP
                         li
