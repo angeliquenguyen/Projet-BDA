@@ -11,6 +11,7 @@ var initPassport = require('./passport/init');
 
 var routes = require('./routes/index');
 var characters = require('./routes/characters');
+var friends = require('./routes/friends');
 
 var database = require('./models/database');
 
@@ -40,6 +41,7 @@ app.use(flash());
 //ROUTES
 app.use('/', routes(passport));
 app.use('/characters', characters);
+app.use('/friends', friends);
 
 initPassport(passport);
 

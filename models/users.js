@@ -7,4 +7,5 @@ module.exports = mongoose.model('User', {
     firstName: String,
     lastName: String,
     creationDate: { type: Date, default: Date.now },
+    friends: [String]
 });

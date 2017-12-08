@@ -36,6 +36,7 @@ module.exports = function(passport){
     /* Handle Logout */
     router.get('/signout', function(req, res) {
         req.logout();
+        res.cookie('userId', '');
         res.redirect('/');
     });
 

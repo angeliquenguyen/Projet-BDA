@@ -1,0 +1,19 @@
+extends layout
+
+block content
+    div.container
+        div.row
+            div.col-sm-6.col-md-4.col-md-offset-4
+                h1 Friends List
+                ul
+                    for friend in friends
+                        li #{friend}
+                        li
+                            form(action='/friends/#{friend}/delete', method='post', name='deleteFriend', ,='', enctype='application/x-www-form-urlencoded')
+                                input(type='hidden', value='DELETE', name='_method')
+                                button(type='submit') Delete
+                h3
+                    form(action='/friends', method='post', name='addFriend', ,='', enctype='application/x-www-form-urlencoded')
+                        input(type='hidden', value='PUT', name='_method')
+                        input(type='text', name='friendName', required)
+                        button(type='submit') Add

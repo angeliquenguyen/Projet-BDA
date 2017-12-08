@@ -14,6 +14,8 @@ router.use(methodOverride(function(req, res){
     }
 }));
 
+router.all('*', isAuthenticated);
+
 router.route('/')
     .get(function(req, res, next) {
         Character.find({'userId' : req.cookies.userId}, function (err, characters) {
@@ -182,3 +184,9 @@ router.route('/:id/edit')
     });
 
 module.exports = router;
+
+function isAuthenticated (req, res, next) {
+    if (req.isAuthenticated())
+        return next();
+    res.redirect('/');
+};
