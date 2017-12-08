@@ -101,10 +101,38 @@ router.route('/:username/delete')
         });
     });
 
+router.route('/search')
+    .get(function(req, res) {
+    var regex = new RegExp(req.query["term"], 'i');
+    var query = User.find({username: regex}, { 'username': 1 }).sort({"updated_at":-1}).sort({"created_at":-1}).limit(20);
+
+    // Execute query in a callback and return users list
+    query.exec(function(err, users) {
+        if (!err) {
+            var result = buildResultSet(users);
+            res.send(result, {
+                'Content-Type': 'application/json'
+            }, 200);
+        } else {
+            res.send(JSON.stringify(err), {
+                'Content-Type': 'application/json'
+            }, 404);
+        }
+    });
+});
+
 module.exports = router;
 
 function isAuthenticated (req, res, next) {
     if (req.isAuthenticated())
         return next();
     res.redirect('/');
-};
+}
+
+function buildResultSet (docs) {
+    var result = [];
+    for(var object in docs){
+        result.push(docs[object]);
+    }
+    return result;
+}
