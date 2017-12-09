@@ -13,7 +13,17 @@ var routes = require('./routes/index');
 var characters = require('./routes/characters');
 var friends = require('./routes/friends');
 
-var database = require('./models/database');
+//DATABASE CONNECTION
+var mongoose = require('mongoose');
+var dbConfig = require('./database');
+
+mongoose.connect(dbConfig.url, { useMongoClient: true }, function (err) {
+    if(err) {
+        console.error(err);
+    } else {
+        console.log("Connection succesful");
+    }
+});
 
 
 //EXPRESS

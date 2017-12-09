@@ -2,6 +2,7 @@ var express = require('express'),
     router = express.Router(),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
+    Character = require('../models/characters'),
     User = require('../models/users');
 
 router.use(bodyParser.urlencoded({ extended: true }));
@@ -83,6 +84,37 @@ router.param('username', function(req, res, next, username) {
     });
 });
 
+router.route('/:username/profile')
+    .get(function (req, res){
+        User.findOne({'username': req.username}, function (err, user) {
+            if (err) {
+                console.log(username + ' was not found');
+                res.status(404);
+                var err = new Error('Not Found');
+                err.status = 404;
+                res.format({
+                    html: function(){
+                        next(err);
+                    },
+                    json: function(){
+                        res.json({message : err.status  + ' ' + err});
+                    }
+                });
+            } else {
+                Character.find({'userId': user._id}, function (err, characters) {
+                    if (err) {
+                        return console.error(err);
+                    } else {
+                        res.render("profile", {
+                            user: user,
+                            characters: characters
+                        });
+                    }
+                });
+            }
+        });
+    });
+
 
 router.route('/:username/delete')
     .delete(function (req, res){
@@ -104,7 +136,11 @@ router.route('/:username/delete')
 router.route('/search')
     .get(function(req, res) {
     var regex = new RegExp(req.query["term"], 'i');
-    var query = User.find({username: regex}, { 'username': 1 }).sort({"updated_at":-1}).sort({"created_at":-1}).limit(20);
+    var query = User.find({$and: [
+            {username: regex},{
+            _id: {$ne: req.cookies.userId}}
+        ]
+    }, { 'username': 1 }).sort({"updated_at":-1}).sort({"created_at":-1}).limit(20);
 
     // Execute query in a callback and return users list
     query.exec(function(err, users) {

@@ -2,17 +2,19 @@ extends ../layout
 
 block content
     div.container
-        div.row
-            div.col-sm-6.col-md-4.col-md-offset-4
                 h1 Add Character
                 form(action='/characters/', method='post', name='addCharacter')
-                    p
-                        label(for='name') Name:
-                        input#name(type='text', name='name')
-                    p
-                        | Sex:
-                        label(for='M') Male
-                        input#M(type='radio', name='sex', value='M')
-                        label(for='F') Female
-                        input#F(type='radio', name='sex', value='F')
-                    button(type='submit') Create
+                    div.form-group.row
+                        label.col-sm-2.col-form-label(for='name') Name
+                        .col-sm-10
+                            input.form-control#name(type='text', name='name', required='true')
+                    div.form-check
+                        label.form-check-label(for='M')
+                            input.form-check-input#M(type='radio', name='sex', value='M', checked)
+                            | Male
+                    div.form-check
+                        label.form-check-label(for='F')
+                            input.form-check-input#F(type='radio', name='sex', value='F')
+                            | Female
+                        small.form-text.text-muted Sorry, helisexual is not supported yet.
+                    button.btn.btn-primary(type='submit') Create

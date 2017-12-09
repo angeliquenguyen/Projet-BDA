@@ -1,25 +1,21 @@
 extends ../layout
 
 block content
-    div.container
+        h1 Characters List
         div.row
-            div.col-sm-6.col-md-4.col-md-offset-4
-                h1 Characters List
-                ul
-                    for character in characters
-                        li Name: #{character.name}
-                        li Sex: #{character.sex}
-                        li
-                            img(src='#{character.avatar}')
-                        li Level: #{character.level}
-                        li #{character.xp} XP
-                        li
-                            form(action='/characters/#{character._id}/edit', method='post', name='updateCharacter', ,='', enctype='application/x-www-form-urlencoded')
+            for character in characters
+                div.card.text-white.bg-dark(style="width: 20rem")
+                    img.card-img-top(src='#{character.avatar}')
+                    .card-body.text-center
+                        h4.card-title #{character.name}
+                        p Sex: #{character.sex}
+                        p Level: #{character.level}
+                        p #{character.xp} XP
+                        div.row(style='justify-content: center')
+                            a.card-link.btn.btn-primary(href='/characters/#{character._id}') Show
+                            a.card-link.btn.btn-primary(href='/characters/#{character._id}/edit') Edit
+                            form.card-link(action='/characters/#{character._id}/edit', method='post', name='updateCharacter', ,='', enctype='application/x-www-form-urlencoded')
                                 input(type='hidden', value='DELETE', name='_method')
-                                button(type='submit') Delete
-                        li
-                            a(href='/characters/#{character._id}/edit') Edit
-                        li
-                            a(href='/characters/#{character._id}') Show
-                h3
-                    a(href='/characters/new') Create new character
+                                button.card-link.btn.btn-primary(type='submit') Delete
+        h3
+            a(href='/characters/new') Create new character

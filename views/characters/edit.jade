@@ -1,33 +1,21 @@
 extends ../layout
 
 block content
-    div.container
-        div.row
-            div.col-sm-6.col-md-4.col-md-offset-4
-                h1 Edit Character
-                h3
-                    a(href='/characters') Characters List
-                form(action='/characters/#{character._id}/edit', method='post', name='updateCharacter', enctype='application/x-www-form-urlencoded')
-                    table
-                        tbody
-                            tr
-                                td Name:
-                                td
-                                    input(type='text', name='name', value='#{character.name}')
-                            tr
-                                td Sex:
-                                td
-                                    if character.sex==="M"
-                                        label(for='M') Male
-                                        input#M(type='radio', name='sex', value='M', checked='true')
-                                        label(for='F') Female
-                                        input#F(type='radio', name='sex', value='F')
-                                    else
-                                        label(for='M') Male
-                                        input#M(type='radio', name='sex', value='M')
-                                        label(for='F') Female
-                                        input#F(type='radio', name='sex', value='F', checked='true')
-                            tr
-                                input(type='hidden', value='PUT', name='_method')
-                                td(colspan='2')
-                                    button(type='submit') Update
+    h1 Edit Character
+    form(action='/characters/#{character._id}/edit', method='post', name='updateCharacter', enctype='application/x-www-form-urlencoded')
+        div.form-group.row
+            label.col-sm-2.col-form-label(for='name') Name
+            .col-sm-10
+                input.form-control#name(type='text', name='name', value='#{character.name}')
+        div.form-check
+            label.form-check-label(for='M')
+                input.form-check-input#M(type='radio', name='sex', value='M', checked=character.sex=="M")
+                | Male
+        div.form-check
+            label.form-check-label(for='F')
+                input.form-check-input#F(type='radio', name='sex', value='F', checked=character.sex=="F")
+                | Female
+        input(type='hidden', value='PUT', name='_method')
+        button.btn.btn-primary(type='submit') Update
+    h3
+        a(href='/characters') Characters List

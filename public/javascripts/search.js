@@ -34,7 +34,7 @@ $(function () {
             // Prevent other event from not being execute
             event.preventDefault();
             // optionnal: submit the form after field has been filled up
-            $('#quicksearch').submit();
+            $('#search-friend').submit();
         }
     });
 });

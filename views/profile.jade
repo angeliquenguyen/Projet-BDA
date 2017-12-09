@@ -1,0 +1,23 @@
+extends layout
+
+block content
+    div.jumbotron
+        h1 Profile of #{user.username}
+        ul.user-details
+            li Username ---> #{user.username}
+            li Email    ---> #{user.email}
+            li First Name ---> #{user.firstName}
+            li Last Name ---> #{user.lastName}
+        p
+            a.btn.btn-lg.btn-warning(href="/friends/#{user.username}/delete", role="button") Remove from friends
+    div.row(style='justify-content: center')
+        for character in characters
+            div.card.text-white.bg-dark(style="width: 20rem")
+                img.card-img-top(src='#{character.avatar}')
+                .card-body.text-center
+                    h4.card-title #{character.name}
+                    p Sex: #{character.sex}
+                    p Level: #{character.level}
+                    p #{character.xp} XP
+                    div.row(style='justify-content: center')
+                        a.card-link.btn.btn-primary(href='/characters/#{character._id}') Show
