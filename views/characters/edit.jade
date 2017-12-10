@@ -15,6 +15,26 @@ block content
             label.form-check-label(for='F')
                 input.form-check-input#F(type='radio', name='sex', value='F', checked=character.sex=="F")
                 | Female
+        div.form-group.row
+            label.col-sm-2.col-form-label(for='level') Level
+            .col-sm-10
+                select.form-control(name="level", id="level")
+                    - for(var i = 1; i<=100;i++){
+                    if i==character.level
+                        option(value="#{i}", selected) Level #{i}
+                    else
+                        option(value="#{i}") Level #{i}
+                    - }
+        div.form-group.row
+            label.col-sm-2.col-form-label(for='xp') XP
+            .col-sm-10
+                select.form-control(name="xp", id="xp")
+                    - for(var i = 1; i<=100;i++){
+                    if i*20==character.xp
+                        option(value="#{i*20}", selected) #{i * 20}XP
+                    else
+                        option(value="#{i * 20}") #{i * 20}XP
+                    - }
         input(type='hidden', value='PUT', name='_method')
         button.btn.btn-primary(type='submit') Update
     h3

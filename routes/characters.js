@@ -38,13 +38,15 @@ router.route('/')
     .post(function(req, res) {
         var name = req.body.name;
         var sex = req.body.sex;
+        var level = req.body.level;
+        var xp = req.body.xp;
         var avatar = sex === "M" ? "/images/male_avatar.jpg" : "/images/female_avatar.jpg";
         Character.create({
             name: name,
-            avatar: avatar,
             sex: sex,
-            level: 1,
-            xp: 0,
+            level: level,
+            xp: xp,
+            avatar: avatar,
             creationDate: Date.now(),
             userId: req.cookies.userId
         }, function (err, character) {
@@ -136,11 +138,15 @@ router.route('/:id/edit')
     .put(function(req, res) {
         var name = req.body.name;
         var sex = req.body.sex;
+        var level = req.body.level;
+        var xp = req.body.xp;
         var avatar = sex === "M" ? "/images/male_avatar.jpg" : "/images/female_avatar.jpg";
         Character.findById(req.id, function (err, character) {
             character.update({
                 name: name,
                 sex: sex,
+                level: level,
+                xp: xp,
                 avatar: avatar
             }, function(err, characterId) {
 
